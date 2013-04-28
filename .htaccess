@@ -1,0 +1,16 @@
+# disable directory listing
+Options -Indexes
+
+# enable cool URL
+<IfModule mod_rewrite.c>
+        RewriteEngine On
+        # RewriteBase /
+
+        # prevents files starting with dot to be viewed by browser
+        RewriteRule /\.|^\. - [F]
+
+        # front controller
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule !\.(png|jpg) index.php [L]
+</IfModule>

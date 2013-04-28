@@ -1,0 +1,3 @@
+# ignore all temp file
+*.swp
+*~
