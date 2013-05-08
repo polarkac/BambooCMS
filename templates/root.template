@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" type="text/css" href="css/styles.css" />
+        <link rel="stylesheet" type="text/css" href="{baseURL}/css/styles.css" />
         <title>BambooCMS - Main Page</title>
     </head>
     <body>
@@ -11,27 +11,16 @@
                 <h1>BambooCMS</h1>
                 <nav>
                     <ul>
-                        <li><a href="index.php">Home</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="{baseURL}">Home</a></li>
+                        <li><a href="main">Contact</a></li>
                     </ul>
                 </nav>
             </header>
 
             <div id="content">
-                <section id="articles">
-                    <article class="article">
-                        <h3>Welcome to main page!</h3>
-                        <div class="lead">
-                            Oh fuck yeah, this is the main page for BambooCMS.
-                        </div>
-                        <div class="meta">
-                            Polarkac - 27. 04. 2013
-                        </div>
-                    </article>
-                </section>
-
+            {include content}
                 <aside id="side">
-                    <form action="#" method="post">
+                    <form action="#" method="get">
                         <fieldset>
                             <legend>Login</legend>
                             <div><label for="username">Username: </label><input type="text" id="username" name="username" /></div>

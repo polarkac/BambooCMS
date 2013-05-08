@@ -1,0 +1,11 @@
+                <section id="articles">
+                    <article class="article">
+                        <h3>Welcome to main page!</h3>
+                        <div class="lead">
+                            {test} fuck yeah, this is the main page for BambooCMS.
+                        </div>
+                        <div class="meta">
+                            Polarkac - 27. 04. 2013
+                        </div>
+                    </article>
+                </section>

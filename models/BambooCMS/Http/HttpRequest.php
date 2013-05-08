@@ -1,10 +1,15 @@
 <?php
 namespace BambooCMS\Http;
 
-class HttpRequest {
+use BambooCMS\Object;
+
+class HttpRequest extends Object {
     
     private $config;
-    private $urlParts;
+    private $host;
+    private $path;
+    private $query;
+    private $pathInfo;
 
     public function __construct( \BambooCMS\Configurator $config ) {
         $this->config = $config;
@@ -13,23 +18,29 @@ class HttpRequest {
         $fullURL .= $_SERVER['SERVER_NAME'];
         $fullURL .= $_SERVER['REQUEST_URI'];
 
-        $this->urlParts = parse_url( $fullURL );
-        $this->urlParts['pathInfo'] = '';
+        $urlParts = parse_url( $fullURL );
+        $this->host = $urlParts['host'];
+        $this->path = $urlParts['path'];
+        parse_str( $_SERVER['QUERY_STRING'], $this->query );
 
         $urlParts = explode( $this->config->getUrlDir(), $this->getPath() );
         $urlParts = preg_replace( '/^\//', '', $urlParts[1] );
-        $this->urlParts['pathInfo'] = explode( '/', $urlParts );
+        $this->pathInfo = explode( '/', $urlParts );
     }
 
     public function getHost() {
-        return $this->urlParts['host'];
+        return $this->host;
     }
 
     public function getPath() {
-        return $this->urlParts['path'];
+        return $this->path;
     }
 
     public function getPathInfo() {
-        return $this->urlParts['pathInfo'];
+        return $this->pathInfo;
+    }
+
+    public function getQuery() {
+        return $this->query;
     }
 }

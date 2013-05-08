@@ -13,4 +13,7 @@
 
     $configurator = new \BambooCMS\Configurator( $settings );
 
+    include( WWW_DIR .'/controllers/HomepageController.php' );
+    $configurator->registerController( 'homepage', new \Controllers\HomepageController );
+
     $configurator->runApplication();

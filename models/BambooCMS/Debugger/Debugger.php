@@ -24,6 +24,7 @@ final class Debugger {
             E_USER_WARNING => 'Warning',
             E_NOTICE => 'Notice',
             E_USER_NOTICE => 'Notice',
+            E_STRICT => 'Strict warning',
         );
         print( $errorNames[$errorCode] .' - '. $message .' on '. $line .' line in '. $file );
 

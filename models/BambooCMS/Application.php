@@ -1,7 +1,7 @@
 <?php
 namespace BambooCMS;
 
-class Application {
+class Application extends Object {
 
     private $request;
     private $config;
@@ -18,21 +18,12 @@ class Application {
 
     public function generatePage() {
         $path = $this->request->getPathInfo();
+        $cntName = !empty( $path[0] ) ? $path[0] : 'homepage';
+        $action = !empty( $path[1] ) ? $path[1] : NULL;
+        $controller = $this->config->getController( $cntName );
+        $controller->prepare( $action );
+        $controller->render( $action );
 
-        if ( empty( $path[0] ) ) {
-            $path = array( 'default' );
-        }
-
-        $content = '';
-
-        if ( is_file( WWW_DIR .'/templates/'. $path[0] .'.template' ) ) {
-            $content = file_get_contents( WWW_DIR .'/templates/'. $path[0] .'.template' );
-        } else {
-            throw new \BambooCMS\Exceptions\NoTemplateFileException( $path[0] .'.template is missing.' );
-        }
-        $content = str_replace( '{urlDir}', $this->config->getUrlDir(), $content );
-        $content = str_replace( '{testVariable}', 'hahahahaha', $content );
-
-        print( $content );
+        $controller->writeOutput();
     }
 }   

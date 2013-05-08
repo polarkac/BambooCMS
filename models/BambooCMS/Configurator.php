@@ -7,6 +7,7 @@ class Configurator extends \BambooCMS\Object {
 
     private $baseDir;
     private $urlDir;
+    private $controllers = array();
     
     public function __construct( array $settings ) {
         session_start();
@@ -25,6 +26,8 @@ class Configurator extends \BambooCMS\Object {
         $name = str_replace( '\\', '/', $name );
         if ( is_file( $this->baseDir .'/models/'. $name .'.php' ) ) {
             include( $this->baseDir .'/models/'. $name .'.php' ); 
+        } else {
+            throw new \BambooCMS\Exceptions\ClassNotFoundException( 'Class '. $name .' is not exist.' );
         }
     }
 
@@ -40,6 +43,23 @@ class Configurator extends \BambooCMS\Object {
     }
 
     public function getUrlDir() {
-        return $this->urlDir;
+        return '/'. $this->urlDir;
+    }
+
+    public function registerController( $name, \BambooCMS\Controller $controller ) {
+        if ( !array_key_exists( $name, $this->controllers ) ) {
+            $this->controllers[$name] = $controller;
+            $this->controllers[$name]->setConfigurator( $this );
+        } else {
+            throw new \BambooCMS\Exceptions\ControllerAlreadyExists;
+        }
+    }
+
+    public function getController( $name ) {
+        if ( array_key_exists( $name, $this->controllers ) ) {
+            return $this->controllers[$name];
+        } else {
+            throw new \Exception( 'Controller isnt registered.' );
+        }
     }
 }
