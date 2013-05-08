@@ -1,7 +1,9 @@
 <?php
 namespace BambooCMS;
 
-class Configurator {
+include( __DIR__ .'/Object.php' );
+
+class Configurator extends \BambooCMS\Object {
 
     private $baseDir;
     private $urlDir;

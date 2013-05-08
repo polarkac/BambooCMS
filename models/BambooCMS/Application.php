@@ -27,6 +27,8 @@ class Application {
 
         if ( is_file( WWW_DIR .'/templates/'. $path[0] .'.template' ) ) {
             $content = file_get_contents( WWW_DIR .'/templates/'. $path[0] .'.template' );
+        } else {
+            throw new \BambooCMS\Exceptions\NoTemplateFileException( $path[0] .'.template is missing.' );
         }
         $content = str_replace( '{urlDir}', $this->config->getUrlDir(), $content );
         $content = str_replace( '{testVariable}', 'hahahahaha', $content );
