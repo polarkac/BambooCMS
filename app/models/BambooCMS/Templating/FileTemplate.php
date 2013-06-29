@@ -5,10 +5,10 @@ class FileTemplate extends Template {
     
     public function getTemplateData() {
         $rootData = '';
-        if ( is_file( WWW_DIR .'/templates/root.template' ) ) {
-            $rootData = file_get_contents( WWW_DIR .'/templates/root.template' );
+        if ( is_file( WWW_DIR .'/app/templates/root.template' ) ) {
+            $rootData = file_get_contents( WWW_DIR .'/app/templates/root.template' );
         }
-        $data = file_get_contents( WWW_DIR .'/templates/'. $this->templateFile .'.template' );
+        $data = file_get_contents( WWW_DIR .'/app/templates/'. $this->templateFile .'.template' );
 
         foreach ( $this->variables as $name => $value ) {
             $data = str_replace( '{'. $name .'}', $value, $data);

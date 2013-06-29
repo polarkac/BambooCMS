@@ -24,10 +24,16 @@ class Configurator extends \BambooCMS\Object {
 
     public function loadClass( $name ) {
         $name = str_replace( '\\', '/', $name );
-        if ( is_file( $this->baseDir .'/models/'. $name .'.php' ) ) {
-            include( $this->baseDir .'/models/'. $name .'.php' ); 
+        $modelFile = $this->baseDir .'/app/models/'. $name .'.php';
+        $controllerFile = $this->baseDir .'/app/'. $name .'.php';
+        if ( is_file( $modelFile ) ) {
+            include( $modelFile ); 
         } else {
-            throw new \BambooCMS\Exceptions\ClassNotFoundException( 'Class '. $name .' is not exist.' );
+            if ( is_file( $controllerFile ) ) {
+                include( $controllerFile );
+            } else {
+                throw new \BambooCMS\Exceptions\ClassNotFoundException( 'Class '. $name .' is not exist.' );
+            }
         }
     }
 

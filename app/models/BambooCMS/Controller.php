@@ -19,7 +19,11 @@ abstract class Controller extends Object {
     }
 
     public function writeOutput() {
-        print( $this->template->getTemplateData() );
+        if ( !empty( $this->template ) ) {
+            print( $this->template->getTemplateData() );
+        } else {
+            throw new \BambooCMS\Exceptions\ControllerHasNoTemplateException( 'Template file is not set up for this controller ('. get_class( $this ) .').' );
+        }
     }
 
 }

@@ -1,8 +1,9 @@
 <?php
     define( "WWW_DIR", __DIR__ );
+    define( "APP_DIR", WWW_DIR .'/app' );
 
-    include( WWW_DIR .'/models/BambooCMS/Configurator.php' );
-    include( WWW_DIR .'/models/BambooCMS/Debugger/Debugger.php' );
+    include( APP_DIR .'/models/BambooCMS/Configurator.php' );
+    include( APP_DIR .'/models/BambooCMS/Debugger/Debugger.php' );
 
     \BambooCMS\Debugger\Debugger::enableDebug();
 
@@ -13,7 +14,7 @@
 
     $configurator = new \BambooCMS\Configurator( $settings );
 
-    include( WWW_DIR .'/controllers/HomepageController.php' );
     $configurator->registerController( 'homepage', new \Controllers\HomepageController );
+    $configurator->registerController( 'test', new \Controllers\TestController );
 
     $configurator->runApplication();
