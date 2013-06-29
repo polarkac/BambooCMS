@@ -1,7 +1,8 @@
 <?php
 namespace BambooCMS\Templating;
 
-use \BambooCMS\Object;
+use \BambooCMS\Object,
+    \BambooCMS\Exceptions\NoTemplateFileException;
 
 abstract class Template extends Object {
     
@@ -9,13 +10,17 @@ abstract class Template extends Object {
     protected $templateFile;
     protected $config;
 
-    public function __construct( $fileName, $config ) {
-        $this->templateFile = $fileName;
+    public function __construct( $filename, \BambooCMS\Configurator $config ) {
+        if ( is_file( APP_DIR .'/templates/'. $filename .'.template' ) ) {
+            $this->templateFile = $filename;
+        } else {
+            throw new NoTemplateFileException( 'Template file ('. $filename .'.template) is missing.' );
+        }
         $this->config = $config;
     }
 
-    public function setTemplateFile( $fileName ) {
-        $this->templateFile = $fileName;
+    public function setTemplateFile( $filename ) {
+        $this->templateFile = $filename;
     }
 
     public function addVariable( $name, $value ) {

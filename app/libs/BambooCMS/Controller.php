@@ -11,7 +11,8 @@ abstract class Controller extends Object {
     }
 
     public function prepare( $action ) {
-
+        preg_match( '/(\w+)Controller$/', get_class( $this ), $className );
+        $this->template = new Templating\FileTemplate( lcfirst( $className[1] ), $this->config );
     }
 
     public function render( $action ) {
