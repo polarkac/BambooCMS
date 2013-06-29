@@ -1,6 +1,4 @@
 <?php
-namespace Controllers;
-
 use \BambooCMS\Controller,
     \BambooCMS\Templating\FileTemplate;
 

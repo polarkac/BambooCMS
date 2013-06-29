@@ -8,6 +8,7 @@ class Configurator extends \BambooCMS\Object {
     private $baseDir;
     private $urlDir;
     private $controllers = array();
+    private $includeDirs = array( 'libs', 'controllers' );
     
     public function __construct( array $settings ) {
         session_start();
@@ -24,17 +25,16 @@ class Configurator extends \BambooCMS\Object {
 
     public function loadClass( $name ) {
         $name = str_replace( '\\', '/', $name );
-        $modelFile = $this->baseDir .'/app/models/'. $name .'.php';
-        $controllerFile = $this->baseDir .'/app/'. $name .'.php';
-        if ( is_file( $modelFile ) ) {
-            include( $modelFile ); 
-        } else {
-            if ( is_file( $controllerFile ) ) {
-                include( $controllerFile );
-            } else {
-                throw new \BambooCMS\Exceptions\ClassNotFoundException( 'Class '. $name .' is not exist.' );
+
+        foreach ( $this->includeDirs as $dir ) {
+            $file = $this->baseDir .'/app/'. $dir .'/'. $name .'.php';
+            if ( is_file ( $file ) ) {
+                include( $file );
+                return;
             }
         }
+
+        throw new \BambooCMS\Exceptions\ClassNotFoundException( 'Class '. $name .' does not exist.' );
     }
 
     public function runApplication() {
