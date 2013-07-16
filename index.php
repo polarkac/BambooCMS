@@ -16,7 +16,7 @@
 
     $configurator = new \BambooCMS\Configurator( $settings );
 
-    $configurator->registerController( 'homepage', new HomepageController );
-    $configurator->registerController( 'test', new TestController );
+    $configurator->registerController( 'homepage', new HomepageController( $configurator ) );
+    $configurator->registerController( 'test', new TestController($configurator) );
 
     $configurator->runApplication();
